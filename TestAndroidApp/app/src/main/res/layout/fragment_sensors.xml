@@ -1,0 +1,22 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jalcdeveloper.testandroidhome.ui.SensorsFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_sensors"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <!-- Empty list -->
+    <TextView
+        android:id="@+id/recyclerview_sensors_empty"
+        android:text="@string/recyclerview_sensors_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:padding="16dp"/>
+
+</FrameLayout>
