@@ -1,4 +1,10 @@
 apply plugin: 'com.android.application'
+//http://www.rainbowbreeze.it/environmental-variables-api-key-and-secret-buildconfig-and-android-studio/
+//http://programmers.stackexchange.com/questions/205606/strategy-for-keeping-secret-info-such-as-api-keys-out-of-source-control
+
+def PUBNUB_PUBLISH_KEY = '"' + PubnubPublishKey + '"' ?: '"Define Pubnub publish key"';
+def PUBNUB_SUBSCRIBE_KEY = '"' + PubnubSubscribeKey + '"' ?: '"Define Pubnub subscribe key"';
+def PUBNUB_SECRET_KEY = '"' + PubnubSecretKey + '"' ?: '"Define Pubnub secret key"';
 
 android {
     compileSdkVersion 22
@@ -15,6 +21,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField('String', 'PUBNUB_PUBLISH_KEY', PUBNUB_PUBLISH_KEY)
+            buildConfigField('String', 'PUBNUB_SUBSCRIBE_KEY', PUBNUB_SUBSCRIBE_KEY)
+            buildConfigField('String', 'PUBNUB_SECRET_KEY', PUBNUB_SECRET_KEY)
+            minifyEnabled false
+            applicationIdSuffix ".debug"
         }
     }
 }

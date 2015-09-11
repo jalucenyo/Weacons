@@ -16,6 +16,7 @@
 */
 package com.jalcdeveloper.testandroidhome.communication;
 
+import com.jalcdeveloper.testandroidhome.BuildConfig;
 import com.jalcdeveloper.testandroidhome.weacon.WeaconNode;
 import com.pubnub.api.Callback;
 import com.pubnub.api.Pubnub;
@@ -26,10 +27,10 @@ import java.util.List;
 
 public class PubNubHelper  {
 
-    private static final String PUBLISH_KEY = "pub-YOUR PUBLISH KEY";
-    private static final String SUSCRIBE_KEY = "sub-YOUR SUSCRIBE KEY";
-    private static final String SECRET_KEY = "sec-c-YOUR SECREY KEY";
-    private static final String CHANNEL_SENSORS_LIST = "sensors_list";
+    public static final String PUBLISH_KEY = BuildConfig.PUBNUB_PUBLISH_KEY;
+    public static final String SUSCRIBE_KEY = BuildConfig.PUBNUB_SUBSCRIBE_KEY;
+    public static final String SECRET_KEY = BuildConfig.PUBNUB_SECRET_KEY;
+    public static final String CHANNEL_SENSORS_LIST = "sensors_list";
     public static final String CHANNEL_WEACON_LIST = "sensors_list";
 
 //    private static PubNubHelperListener listener;
