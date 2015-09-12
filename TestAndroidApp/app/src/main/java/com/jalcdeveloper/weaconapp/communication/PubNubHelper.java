@@ -16,11 +16,13 @@
 */
 package com.jalcdeveloper.weaconapp.communication;
 
+import com.jalcdeveloper.weaconapp.BuildConfig;
+
 public class PubNubHelper  {
 
-    public static final String PUBLISH_KEY = "pub-YOUR PUBLISH KEY";
-    public static final String SUSCRIBE_KEY = "sub-YOUR SUSCRIBE KEY";
-    public static final String SECRET_KEY = "sec-c-YOUR SECREY KEY";
+    public static final String PUBLISH_KEY = BuildConfig.PUBNUB_PUBLISH_KEY;
+    public static final String SUSCRIBE_KEY = BuildConfig.PUBNUB_SUBSCRIBE_KEY;
+    public static final String SECRET_KEY = BuildConfig.PUBNUB_SECRET_KEY;
     public static final String CHANNEL_WEACON_LIST = "sensors_list";
 
 //    private static PubNubHelperListener listener;
