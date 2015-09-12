@@ -25,6 +25,12 @@ public class WeaconBrowserFragment extends BrowseFragment {
 
 
     public void init(){
+
+        //TODO: Icono de la aplicacion
+        //TODO: CMMATA - Crear Base de datos
+        //TODO: JALC - Descubrir sensores e guardar en base de datos.
+        //TODO: JALC - Sensores virtuales !!!
+
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         setAdapter(mRowsAdapter);
 
@@ -37,7 +43,7 @@ public class WeaconBrowserFragment extends BrowseFragment {
             //ObjectAdapter rowContents = new CursorObjectAdapter((new SinglePresenterSelector(new WeaconPresenter())));
             HeaderItem headerItem = new HeaderItem(position, HEADERS[position]);
 
-
+            // TODO: CMMATA - Asociar WeacomDetailPresenter.
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new WeaconPresenter());
             for(int index=0; index < WEACONS.length; index++){
                 listRowAdapter.add(WEACONS[position]);

@@ -7,6 +7,7 @@ public class WeaconDetailPresenter extends AbstractDetailsDescriptionPresenter {
     @Override
     protected void onBindDescription(ViewHolder viewHolder, Object o) {
 
+        //TODO: CMMATA -Implementar.
 
 
     }

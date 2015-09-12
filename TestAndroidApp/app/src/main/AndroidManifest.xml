@@ -30,7 +30,7 @@
         <activity
             android:name="com.jalcdeveloper.weaconapp.ui.tv.MainTvActivity"
             android:label="@string/title_activity_main_tv"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

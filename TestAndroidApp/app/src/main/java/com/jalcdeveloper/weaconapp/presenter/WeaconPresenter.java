@@ -45,11 +45,13 @@ public class WeaconPresenter extends Presenter {
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object o) {
 
         ImageCardView cardView = (ImageCardView) viewHolder.view;
+        //TODO: CMMATA - Cargar datos de la base de datos.
+        // http://developer.android.com/intl/es/training/basics/data-storage/databases.html
         cardView.setTitleText("Hola Mundo");
         cardView.setContentText("Esto es una prueba");
         cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
 
-        //TODO: Image load from Picasso
+        //TODO: CMMATA - Image load from Picasso
         //cardView.setMainImage();
 
     }

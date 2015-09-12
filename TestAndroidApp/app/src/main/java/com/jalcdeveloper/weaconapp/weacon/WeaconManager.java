@@ -71,7 +71,7 @@ public class WeaconManager {
     }
 
     public static void publishWeacon(WeaconNode weacon){
-        //TODO: UR
+        //TODO: JALC - URGENTE - Envio a sensores
     }
 
     public static boolean isContentWeaconNode(String channelWeacon){
