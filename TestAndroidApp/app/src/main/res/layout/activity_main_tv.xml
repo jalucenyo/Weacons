@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <fragment
-        android:name="com.jalcdeveloper.testandroidhome.ui.tv.WeaconBrowserFragment"
+        android:name="com.jalcdeveloper.weaconapp.ui.tv.WeaconBrowserFragment"
         android:id="@+id/browse_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

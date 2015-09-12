@@ -20,7 +20,7 @@
     </android.support.v7.widget.Toolbar>
 
     <fragment
-        android:name="com.jalcdeveloper.testandroidhome.ui.SensorsFragment"
+        android:name="com.jalcdeveloper.weaconapp.ui.SensorsFragment"
         android:id="@+id/fragment_sensor_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
