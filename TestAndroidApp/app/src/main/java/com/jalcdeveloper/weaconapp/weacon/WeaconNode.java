@@ -1,15 +1,16 @@
 package com.jalcdeveloper.weaconapp.weacon;
 
+
+import java.util.Map;
+
 public class WeaconNode {
 
     private String type;
     private String channel;
-    private String description;
-    private String message;
-    private WeaconNodeListener weaconNodeListener;
+    private Map<String, Object> attributes;
 
-    public interface WeaconNodeListener{
-        void onUpdate(WeaconNode weacon);
+    public WeaconNode() {
+
     }
 
     public String getType() {
@@ -28,28 +29,28 @@ public class WeaconNode {
         this.channel = channel;
     }
 
-    public String getDescription() {
-        return description;
+    public Map<String,Object> getAttributes(){
+        return attributes;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAttributes(Map<String,Object> attributes){
+        this.attributes = attributes;
     }
 
-    public String getMessage() {
-        return message;
+    public int getIntAttribute(String attributeKey){
+        return (int)attributes.get(attributeKey);
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setIntAttribute(String attributeKey, int value){
+            attributes.put(attributeKey, value);
     }
 
-    public WeaconNodeListener getListener() {
-        return weaconNodeListener;
+    public double getDoubleAttribute(String attributeKey){
+        return (double)attributes.get(attributeKey);
     }
 
-    public void setListener(WeaconNodeListener listener) {
-        this.weaconNodeListener = listener;
+    public void setDoubleAttribute(String attributeKey, double value){
+        attributes.put(attributeKey, value);
     }
 
 }

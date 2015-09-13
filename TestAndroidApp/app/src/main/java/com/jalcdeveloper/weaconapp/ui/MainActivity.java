@@ -37,37 +37,4 @@ public class MainActivity extends AppCompatActivity{
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     }
-
-
-    // Implements OnSeekBarChangeListener
-//    @Override
-//    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
-//
-//    @Override
-//    public void onStartTrackingTouch(SeekBar seekBar) { }
-//
-//    @Override
-//    public void onStopTrackingTouch(SeekBar seekBar) {
-//        Log.d(TAG, "OnStopTRackingTouch SeekBar : " + seekBar.getProgress());
-//        try {
-//            pubnub.publish(channel + "_value",
-//                    new JSONObject("{\"value\":\"" + seekBar.getProgress() + "\"}"),
-//                    new Callback() {
-//                        @Override
-//                        public void successCallback(String channel, Object message) {
-//                            super.successCallback(channel, message);
-//                            Log.d(TAG, "Ok! publish.");
-//                        }
-//
-//                        @Override
-//                        public void errorCallback(String channel, PubnubError error) {
-//                            super.errorCallback(channel, error);
-//                            Log.e(TAG, error.getErrorString());
-//                        }
-//                    });
-//        }catch (Exception ex){
-//            Log.e(TAG, ex.getMessage());
-//        }
-//    }
-    // END Implements OnSeekBarChangeListener
 }

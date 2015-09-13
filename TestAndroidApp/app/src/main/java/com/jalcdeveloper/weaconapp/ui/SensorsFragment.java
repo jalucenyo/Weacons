@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jalcdeveloper.weaconapp.R;
+import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
 import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
 import com.jalcdeveloper.weaconapp.adapter.WeaconAdapter;
 import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 
 public class SensorsFragment extends Fragment implements WeaconManager.WeaconListener {
 
@@ -59,30 +61,13 @@ public class SensorsFragment extends Fragment implements WeaconManager.WeaconLis
         return rootView;
     }
 
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     /**
      * Events Listener WeaconManager.WeaconListener
      */
     @Override
     public void onNewWeacon(WeaconNode weacon) {
 
-        WeaconManager.suscribeWeacon(weacon, new WeaconNode.WeaconNodeListener() {
+        WeaconManager.suscribeWeacon(weacon, new WeaconNodeListener() {
             @Override
             public void onUpdate(final WeaconNode weacon) {
                 Log.d(TAG, "onUpdate Weacon");
