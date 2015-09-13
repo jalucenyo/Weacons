@@ -1,6 +1,7 @@
 package com.jalcdeveloper.weaconapp.weacon;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class WeaconNode {
@@ -10,7 +11,7 @@ public class WeaconNode {
     private Map<String, Object> attributes;
 
     public WeaconNode() {
-
+        this.attributes = new HashMap<>();
     }
 
     public String getType() {

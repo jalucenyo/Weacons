@@ -92,6 +92,28 @@ public class WeaconManager {
 
     }
 
+    public static void publishDiscoverWeacon(WeaconNode weacon){
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(gson.toJson(weacon));
+        }catch (JSONException ex){ ex.printStackTrace(); }
+        pubnub.publish(PubNubHelper.CHANNEL_WEACON_LIST,
+                jsonObject,
+                new Callback() {
+                    @Override
+                    public void successCallback(String channel, Object message) {
+                        super.successCallback(channel, message);
+                        Log.d(TAG, "Ok! publish.");
+                    }
+
+                    @Override
+                    public void errorCallback(String channel, PubnubError error) {
+                        super.errorCallback(channel, error);
+                        Log.e(TAG, error.getErrorString());
+                    }
+                });
+    }
+
     public static void publishWeacon(WeaconNode weacon){
 
         JSONObject jsonObject = null;
