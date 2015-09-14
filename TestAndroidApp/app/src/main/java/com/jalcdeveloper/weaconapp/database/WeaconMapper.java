@@ -17,6 +17,8 @@ public class WeaconMapper {
         Sensor sensor = new Sensor();
         sensor.set_canal(weacon.getChannel());
         sensor.set_tipo(weacon.getType());
+        sensor.set_nombre(weacon.getChannel());
+        sensor.set_descripcion("Pending Configure");
         return sensor;
 
     }
