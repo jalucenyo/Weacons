@@ -11,6 +11,16 @@ public class Sensor {
     private String _canal;
     private String _tipo;
 
+    public Sensor() {}
+
+    public Sensor(int id, String nombre, String descripcion, String canal, String tipo){
+        this._id = id;
+        this._nombre = nombre;
+        this._descripcion = descripcion;
+        this._canal = canal;
+        this._tipo = tipo;
+    }
+
     public int get_id() {
         return _id;
     }

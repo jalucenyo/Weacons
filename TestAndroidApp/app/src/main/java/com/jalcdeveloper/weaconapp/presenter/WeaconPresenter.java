@@ -6,6 +6,8 @@ import android.support.v17.leanback.widget.Presenter;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.jalcdeveloper.weaconapp.database.Sensor;
+
 public class WeaconPresenter extends Presenter {
 
     private static final String TAG = WeaconPresenter.class.getSimpleName();
@@ -46,12 +48,14 @@ public class WeaconPresenter extends Presenter {
 
         ImageCardView cardView = (ImageCardView) viewHolder.view;
         //TODO: CMMATA - Cargar datos de la base de datos.
+        Sensor sensor = (Sensor) o;
         // http://developer.android.com/intl/es/training/basics/data-storage/databases.html
-        cardView.setTitleText("Hola Mundo");
-        cardView.setContentText("Esto es una prueba");
+        cardView.setTitleText(sensor.get_nombre());
+        cardView.setContentText(sensor.get_descripcion());
         cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
 
         //TODO: CMMATA - Image load from Picasso
+        //http://androidtv-codelabs.appspot.com/static/codelabs/1-androidtv-adding-leanback/#3 -> Create Picasso Target
         //cardView.setMainImage();
 
     }

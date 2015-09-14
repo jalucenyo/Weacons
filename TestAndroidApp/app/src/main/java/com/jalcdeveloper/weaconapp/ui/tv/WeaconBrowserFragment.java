@@ -33,23 +33,29 @@ public class WeaconBrowserFragment extends BrowseFragment {
         //TODO: Icono de la aplicacion
         //TODO: JALC - Descubrir sensores e guardar en base de datos.
         //TODO: JALC - Sensores virtuales !!!
+        //Para reiniciar la BD
+        //getActivity().getApplicationContext().deleteDatabase("Weaconsapp.db");
         WeaconsDbHelper db = new WeaconsDbHelper(getActivity().getApplicationContext());
         //Descomentar para agregar un sensor de prueba
-        /*
+        /**
         Sensor sensor = new Sensor();
         sensor.set_nombre("Prueba");
         sensor.set_descripcion("Canal de prueba");
         sensor.set_canal("ambient_sensor_04");
-        sensor.set_tipo("Ambient");
+        sensor.set_tipo("Ambientales");
         db.addSensor(sensor);
-        */
-
+        sensor.set_nombre("Prueba2");
+        sensor.set_descripcion("Canal de prueba 2");
+        sensor.set_canal("control_strip_04");
+        sensor.set_tipo("Luces");
+        db.addSensor(sensor);
+        **/
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         setAdapter(mRowsAdapter);
 
         setBrandColor(getResources().getColor(R.color.primary));
         setBadgeDrawable(getResources().getDrawable(R.drawable.ic_logo));
-
+        Cursor sensorsList = db.getSensors();
 
         for(int position=0; position < HEADERS.length; position++){
 
@@ -58,18 +64,26 @@ public class WeaconBrowserFragment extends BrowseFragment {
 
             // TODO: CMMATA - Asociar WeacomDetailPresenter.
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new WeaconPresenter());
-            Cursor sensorsList = db.getSensors();
-            sensorsList.moveToFirst();
-            while (sensorsList.moveToNext()) {
-                listRowAdapter.add(sensorsList.getColumnIndex(WeaconsContract.Sensors.COLUMN_NAME_TITLE));
+            if (sensorsList.moveToFirst()) {
+                do {
+                    Sensor aux = new Sensor(
+                            Integer.parseInt(sensorsList.getString(0)),
+                            sensorsList.getString(1),
+                            sensorsList.getString(2),
+                            sensorsList.getString(3),
+                            sensorsList.getString(4)
+                    );
+                    if (aux.get_tipo().equals(HEADERS[position])) {
+                        listRowAdapter.add(aux);
+                    }
+                } while (sensorsList.moveToNext());
             }
-            sensorsList.close();
 
             mRowsAdapter.add(new ListRow(headerItem,listRowAdapter));
             //mRowsAdapter.add(new ListRow(headerItem,rowContents));
 
         }
-
+        sensorsList.close();
     }
 
     @Override

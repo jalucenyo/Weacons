@@ -14,20 +14,47 @@ public class WeaconsDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Weaconsapp.db";
 
+    /**
+     * Constructor
+     * @param context Contexto
+     */
     public WeaconsDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    /**
+     * Crear la BD
+     * @param db Base de datos
+     */
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(WeaconsContract.SQL_CREATE_SENSORS);
         db.execSQL(WeaconsContract.SQL_CREATE_EVENTS);
     }
+
+    /**
+     * Subir version de la BD
+     * @param db         Base de datos
+     * @param oldVersion Version antigua
+     * @param newVersion Version nueva
+     */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    /**
+     * Bajar version de la BD
+     * @param db         Base de datos
+     * @param oldVersion Version antigua
+     * @param newVersion Version nueva
+     */
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + WeaconsContract.Sensors.TABLE_NAME);
     }
 
+    /**
+     * Agregar sensor
+     * @param sensor Sensor que queremos añadir
+     */
     public void addSensor(Sensor sensor) {
         ContentValues values = new ContentValues();
         values.put(WeaconsContract.Sensors.COLUMN_NAME_TITLE, sensor.get_nombre());
@@ -40,6 +67,10 @@ public class WeaconsDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Listado de todos los sensores
+     * @return cursor
+     */
     public Cursor getSensors() {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {
@@ -51,7 +82,7 @@ public class WeaconsDbHelper extends SQLiteOpenHelper {
         };
         String sortOrder = WeaconsContract.Sensors.COLUMN_NAME_TITLE + " DESC";
 
-        Cursor c = db.query(
+        Cursor cur = db.query(
                 WeaconsContract.Sensors.TABLE_NAME,  // The table to query
                 projection,                          // The columns to return
                 null,                                // The columns for the WHERE clause
@@ -61,7 +92,7 @@ public class WeaconsDbHelper extends SQLiteOpenHelper {
                 sortOrder                            // The sort order
         );
 
-        return c;
+        return cur;
     }
 
 }
