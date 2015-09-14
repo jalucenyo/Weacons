@@ -9,6 +9,8 @@ import android.support.v17.leanback.widget.ListRowPresenter;
 import android.view.View;
 
 import com.jalcdeveloper.weaconapp.R;
+import com.jalcdeveloper.weaconapp.database.Sensor;
+import com.jalcdeveloper.weaconapp.database.WeaconsDbHelper;
 import com.jalcdeveloper.weaconapp.presenter.WeaconPresenter;
 
 public class WeaconBrowserFragment extends BrowseFragment {
@@ -27,9 +29,15 @@ public class WeaconBrowserFragment extends BrowseFragment {
     public void init(){
 
         //TODO: Icono de la aplicacion
-        //TODO: CMMATA - Crear Base de datos
         //TODO: JALC - Descubrir sensores e guardar en base de datos.
         //TODO: JALC - Sensores virtuales !!!
+        Sensor sensor = new Sensor();
+        sensor.set_nombre("Prueba");
+        sensor.set_descripcion("Canal de prueba");
+        sensor.set_canal("ambient_sensor_04");
+        sensor.set_tipo("Ambient");
+        WeaconsDbHelper db = new WeaconsDbHelper(getActivity().getApplicationContext());
+        db.addSensor(sensor);
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         setAdapter(mRowsAdapter);

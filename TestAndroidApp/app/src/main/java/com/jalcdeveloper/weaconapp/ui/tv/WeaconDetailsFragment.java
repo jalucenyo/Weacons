@@ -1,7 +1,7 @@
 package com.jalcdeveloper.weaconapp.ui.tv;
 
-import android.support.v17.leanback.app.DetailsFragment;
 import android.os.Bundle;
+import android.support.v17.leanback.app.DetailsFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

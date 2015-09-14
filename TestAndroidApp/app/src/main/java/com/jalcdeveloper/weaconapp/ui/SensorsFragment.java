@@ -1,8 +1,7 @@
 package com.jalcdeveloper.weaconapp.ui;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,10 +11,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jalcdeveloper.weaconapp.R;
-import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
-import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
 import com.jalcdeveloper.weaconapp.adapter.WeaconAdapter;
 import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
 import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 
 public class SensorsFragment extends Fragment implements WeaconManager.WeaconListener {

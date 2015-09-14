@@ -33,11 +33,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:design:22.2.+'
     compile 'com.android.support:appcompat-v7:22.2.+'
     compile 'com.android.support:cardview-v7:22.2.+'
     compile 'com.android.support:recyclerview-v7:22.2.+'
     compile 'com.android.support:leanback-v17:22.2.+'
     compile 'com.pubnub:pubnub-android:3.7.4'
+    compile 'com.google.code.gson:gson:2.3.1'
 }
