@@ -2,6 +2,7 @@ package com.jalcdeveloper.weaconapp.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -37,6 +38,30 @@ public class WeaconsDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(WeaconsContract.Sensors.TABLE_NAME, null, values);
         db.close();
+    }
+
+    public Cursor getSensors() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {
+            WeaconsContract.Sensors._ID,
+            WeaconsContract.Sensors.COLUMN_NAME_TITLE,
+            WeaconsContract.Sensors.COLUMN_NAME_DESC,
+            WeaconsContract.Sensors.COLUMN_NAME_CHANNEL,
+            WeaconsContract.Sensors.COLUMN_NAME_TYPE
+        };
+        String sortOrder = WeaconsContract.Sensors.COLUMN_NAME_TITLE + " DESC";
+
+        Cursor c = db.query(
+                WeaconsContract.Sensors.TABLE_NAME,  // The table to query
+                projection,                          // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                                // The values for the WHERE clause
+                null,                                // don't group the rows
+                null,                                // don't filter by row groups
+                sortOrder                            // The sort order
+        );
+
+        return c;
     }
 
 }
