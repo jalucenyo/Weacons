@@ -1,5 +1,6 @@
 package com.jalcdeveloper.weaconapp.ui.tv;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -10,6 +11,7 @@ import android.view.View;
 
 import com.jalcdeveloper.weaconapp.R;
 import com.jalcdeveloper.weaconapp.database.Sensor;
+import com.jalcdeveloper.weaconapp.database.WeaconsContract;
 import com.jalcdeveloper.weaconapp.database.WeaconsDbHelper;
 import com.jalcdeveloper.weaconapp.presenter.WeaconPresenter;
 
@@ -31,13 +33,16 @@ public class WeaconBrowserFragment extends BrowseFragment {
         //TODO: Icono de la aplicacion
         //TODO: JALC - Descubrir sensores e guardar en base de datos.
         //TODO: JALC - Sensores virtuales !!!
+        WeaconsDbHelper db = new WeaconsDbHelper(getActivity().getApplicationContext());
+        //Descomentar para agregar un sensor de prueba
+        /*
         Sensor sensor = new Sensor();
         sensor.set_nombre("Prueba");
         sensor.set_descripcion("Canal de prueba");
         sensor.set_canal("ambient_sensor_04");
         sensor.set_tipo("Ambient");
-        WeaconsDbHelper db = new WeaconsDbHelper(getActivity().getApplicationContext());
         db.addSensor(sensor);
+        */
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         setAdapter(mRowsAdapter);
@@ -53,9 +58,12 @@ public class WeaconBrowserFragment extends BrowseFragment {
 
             // TODO: CMMATA - Asociar WeacomDetailPresenter.
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new WeaconPresenter());
-            for(int index=0; index < WEACONS.length; index++){
-                listRowAdapter.add(WEACONS[position]);
+            Cursor sensorsList = db.getSensors();
+            sensorsList.moveToFirst();
+            while (sensorsList.moveToNext()) {
+                listRowAdapter.add(sensorsList.getColumnIndex(WeaconsContract.Sensors.COLUMN_NAME_TITLE));
             }
+            sensorsList.close();
 
             mRowsAdapter.add(new ListRow(headerItem,listRowAdapter));
             //mRowsAdapter.add(new ListRow(headerItem,rowContents));
