@@ -63,6 +63,12 @@ public class WeaconManager {
 
                     }
                 }
+
+                @Override
+                public void errorCallback(String channel, PubnubError error) {
+                    super.errorCallback(channel, error);
+                    Log.e(TAG, error.getErrorString());
+                }
             });
         }catch (PubnubException pex){
             if (listener != null )listener.onError(pex.getMessage());
