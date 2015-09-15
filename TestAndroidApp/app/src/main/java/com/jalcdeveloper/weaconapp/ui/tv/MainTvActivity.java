@@ -1,6 +1,7 @@
 package com.jalcdeveloper.weaconapp.ui.tv;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -40,6 +41,16 @@ public class MainTvActivity extends Activity
     @Override
     public void onNewWeacon(WeaconNode weacon) {
         Log.d(TAG, "onNewWeacon " + weacon.getChannel());
+
+        //Check this sensor exist in database.
+        Cursor sensorsList = db.getSensors();
+        if(sensorsList.moveToFirst()){
+            do{
+                // If exists sensor exit method
+                if (sensorsList.getString(3).equals(weacon.getChannel())) return;
+            } while (sensorsList.moveToNext());
+        }
+
         db.addSensor(WeaconMapper.toSensor(weacon));
     }
 

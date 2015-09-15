@@ -14,6 +14,7 @@ import com.jalcdeveloper.weaconapp.database.Sensor;
 import com.jalcdeveloper.weaconapp.database.WeaconsContract;
 import com.jalcdeveloper.weaconapp.database.WeaconsDbHelper;
 import com.jalcdeveloper.weaconapp.presenter.WeaconPresenter;
+import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
 
 public class WeaconBrowserFragment extends BrowseFragment {
 
@@ -73,9 +74,19 @@ public class WeaconBrowserFragment extends BrowseFragment {
                             sensorsList.getString(3),
                             sensorsList.getString(4)
                     );
-                    if (aux.get_tipo().equals(HEADERS[position])) {
+
+                    if(position==0 && aux.get_tipo().equals(WeaconHelper.TYPE_CONTROL)){
                         listRowAdapter.add(aux);
                     }
+
+                    if(position==1 && aux.get_tipo().equals(WeaconHelper.TYPE_AMBIENT)){
+                        listRowAdapter.add(aux);
+                    }
+
+
+//                    if (aux.get_tipo().equals(HEADERS[position])) {
+//                        listRowAdapter.add(aux);
+//                    }
                 } while (sensorsList.moveToNext());
             }
 
