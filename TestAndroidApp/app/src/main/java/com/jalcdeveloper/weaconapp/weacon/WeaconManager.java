@@ -90,6 +90,12 @@ public class WeaconManager {
 
                     if(listener != null) listener.onUpdate(weacon);
                 }
+
+                @Override
+                public void errorCallback(String channel, PubnubError error) {
+                    super.errorCallback(channel, error);
+                    Log.e(TAG, error.getErrorString());
+                }
             });
         }catch (PubnubException pex){ pex.printStackTrace(); }
     }
@@ -153,6 +159,15 @@ public class WeaconManager {
         }
         return false;
 
+    }
+
+    public static WeaconNode getWeaconNode(String channel){
+        for (WeaconNode weacon:weaconList) {
+            if (weacon.getChannel().equals(channel)){
+                return weacon;
+            }
+        }
+        return null;
     }
 
     public static List<WeaconNode> getWeaconList(){

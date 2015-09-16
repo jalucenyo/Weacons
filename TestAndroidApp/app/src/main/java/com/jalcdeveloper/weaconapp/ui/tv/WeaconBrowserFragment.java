@@ -16,25 +16,25 @@ import android.view.View;
 
 import com.jalcdeveloper.weaconapp.R;
 import com.jalcdeveloper.weaconapp.database.Sensor;
-import com.jalcdeveloper.weaconapp.database.WeaconsContract;
+import com.jalcdeveloper.weaconapp.database.WeaconMapper;
 import com.jalcdeveloper.weaconapp.database.WeaconsDbHelper;
 import com.jalcdeveloper.weaconapp.presenter.WeaconPresenter;
 import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
+import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 
 import java.io.Serializable;
 
-public class WeaconBrowserFragment extends BrowseFragment {
+public class WeaconBrowserFragment extends BrowseFragment
+        implements WeaconManager.WeaconListener {
 
     private ArrayObjectAdapter mRowsAdapter;
+    private WeaconsDbHelper db;
 
     private static final String[] HEADERS = new String[]{
             "Luces", "Ambientales", "Consumo"
     };
-
-    private static final String[] WEACONS = new String[]{
-            "WEACON_001", "WEACON_002", "WEACON_003"
-    };
-
 
     public void init(){
 
@@ -43,7 +43,7 @@ public class WeaconBrowserFragment extends BrowseFragment {
         //TODO: JALC - Sensores virtuales !!!
         //Para reiniciar la BD
         //getActivity().getApplicationContext().deleteDatabase("Weaconsapp.db");
-        WeaconsDbHelper db = new WeaconsDbHelper(getActivity().getApplicationContext());
+        db = new WeaconsDbHelper(getActivity().getApplicationContext());
         //Descomentar para agregar un sensor de prueba
         /**
         Sensor sensor = new Sensor();
@@ -90,7 +90,6 @@ public class WeaconBrowserFragment extends BrowseFragment {
                         listRowAdapter.add(aux);
                     }
 
-
 //                    if (aux.get_tipo().equals(HEADERS[position])) {
 //                        listRowAdapter.add(aux);
 //                    }
@@ -102,6 +101,8 @@ public class WeaconBrowserFragment extends BrowseFragment {
 
         }
         sensorsList.close();
+
+        WeaconManager.startDiscovery(this);
         setOnItemViewClickedListener(getDefaultItemViewClickedListener());
     }
 
@@ -109,6 +110,30 @@ public class WeaconBrowserFragment extends BrowseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init();
+    }
+
+    @Override
+    public void onNewWeacon(WeaconNode weacon) {
+
+
+        mRowsAdapter.notifyArrayItemRangeChanged(0, mRowsAdapter.size());
+
+        //Check this sensor exist in database.
+        Cursor sensorsList = db.getSensors();
+        if(sensorsList.moveToFirst()){
+            do{
+                // If exists sensor exit method
+                if (sensorsList.getString(3).equals(weacon.getChannel())) return;
+            } while (sensorsList.moveToNext());
+        }
+
+        db.addSensor(WeaconMapper.toSensor(weacon));
+
+    }
+
+    @Override
+    public void onError(String message) {
+
     }
 
     private OnItemViewClickedListener getDefaultItemViewClickedListener() {

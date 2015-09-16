@@ -1,5 +1,6 @@
 package com.jalcdeveloper.weaconapp.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -14,15 +15,22 @@ import android.widget.TextView;
 
 import com.jalcdeveloper.weaconapp.R;
 import com.jalcdeveloper.weaconapp.database.Sensor;
+import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
+import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-public class WeaconPresenter extends Presenter {
+import java.security.AccessControlContext;
+
+public class WeaconPresenter extends Presenter implements WeaconNodeListener {
 
     private static final String TAG = WeaconPresenter.class.getSimpleName();
     private static int CARD_WIDTH = 200;
     private static int CARD_HEIGHT = 200;
     private static Context mContext;
+    //private ImageCardView cardView;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup) {
@@ -30,6 +38,7 @@ public class WeaconPresenter extends Presenter {
 
         mContext = viewGroup.getContext();
         ImageCardView cardView = new ImageCardView(mContext);
+        //cardView = new ImageCardView(mContext);
         cardView.setFocusable(true);
         cardView.setFocusableInTouchMode(true);
         ((TextView)cardView.findViewById(R.id.content_text)).setTextColor(Color.LTGRAY);
@@ -38,11 +47,37 @@ public class WeaconPresenter extends Presenter {
     }
 
     @Override
+    public void onUpdate(final WeaconNode weacon) {
+        Log.d(TAG, "onUpdate WeaconNode: " + weacon.getChannel());
+        ((Activity)mContext).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                //TODO: Como coñe actualizo el presenter?
+
+            }
+        });
+    }
+
+    @Override
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object o) {
+        Log.d(TAG, "onBindViewHolder");
         Sensor sensor = (Sensor) o;
+        Log.d(TAG, "onBindViewHolder : Sensor " + sensor.get_canal());
+
+        // TODO: Temporalmente mostramos la temp en la descripción
+        WeaconNode weacon = WeaconManager.getWeaconNode(sensor.get_canal());
+        if (weacon != null && weacon.getType().equals(WeaconHelper.TYPE_AMBIENT)) {
+            ((ViewHolder) viewHolder).mCardView
+                    .setContentText(weacon.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE) + " C");
+            Log.d(TAG, "Weacon suscribe : " + weacon.getChannel());
+            WeaconManager.suscribeWeacon(weacon, this);
+        }
+
+
         //Ejemplo en http://androidtv-codelabs.appspot.com/static/codelabs/1-androidtv-adding-leanback/#3 -> Create Picasso Target
         ((ViewHolder) viewHolder).mCardView.setTitleText(sensor.get_nombre());
-        ((ViewHolder) viewHolder).mCardView.setContentText(sensor.get_descripcion());
+        //((ViewHolder) viewHolder).mCardView.setContentText(sensor.get_descripcion());
         ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
         //TODO: Cargar una imagen u otra segun el tipo de sensor y estado
         //Imagenes libres en https://icons8.com
