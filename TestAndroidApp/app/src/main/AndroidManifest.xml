@@ -40,7 +40,8 @@
         <activity
             android:name="com.jalcdeveloper.weaconapp.ui.tv.WeaconDetailsActivity"
             android:label="@string/title_activity_weacon_details"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:exported="true">
         </activity>
     </application>
 

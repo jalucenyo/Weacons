@@ -1,5 +1,6 @@
 package com.jalcdeveloper.weaconapp.ui.tv;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
@@ -7,6 +8,10 @@ import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.OnItemViewClickedListener;
+import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.Row;
+import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
 
 import com.jalcdeveloper.weaconapp.R;
@@ -15,6 +20,8 @@ import com.jalcdeveloper.weaconapp.database.WeaconsContract;
 import com.jalcdeveloper.weaconapp.database.WeaconsDbHelper;
 import com.jalcdeveloper.weaconapp.presenter.WeaconPresenter;
 import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
+
+import java.io.Serializable;
 
 public class WeaconBrowserFragment extends BrowseFragment {
 
@@ -95,6 +102,7 @@ public class WeaconBrowserFragment extends BrowseFragment {
 
         }
         sensorsList.close();
+        setOnItemViewClickedListener(getDefaultItemViewClickedListener());
     }
 
     @Override
@@ -103,6 +111,17 @@ public class WeaconBrowserFragment extends BrowseFragment {
         init();
     }
 
+    private OnItemViewClickedListener getDefaultItemViewClickedListener() {
+        return new OnItemViewClickedListener() {
+            @Override
+            public void onItemClicked(Presenter.ViewHolder viewHolder, Object o,
+                                      RowPresenter.ViewHolder viewHolder2, Row row) {
 
+                Intent intent = new Intent(getActivity(), WeaconDetailsActivity.class);
+                intent.putExtra(Sensor.INTENT_EXTRA_WEACON, (Serializable)o);
+                startActivity(intent);
+            }
+        };
+    }
 
 }

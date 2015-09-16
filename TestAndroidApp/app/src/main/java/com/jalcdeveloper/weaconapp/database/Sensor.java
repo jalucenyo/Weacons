@@ -5,6 +5,7 @@ package com.jalcdeveloper.weaconapp.database;
  */
 public class Sensor {
 
+    public static final String INTENT_EXTRA_WEACON = "INTENT_EXTRA_WEACON";
     private int _id;
     private String _nombre;
     private String _descripcion;
