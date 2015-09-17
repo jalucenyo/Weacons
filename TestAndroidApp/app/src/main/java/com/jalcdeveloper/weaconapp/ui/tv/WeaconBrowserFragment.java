@@ -60,7 +60,7 @@ public class WeaconBrowserFragment extends BrowseFragment
         setAdapter(mRowsAdapter);
 
         setBrandColor(getResources().getColor(R.color.primary));
-        setBadgeDrawable(getResources().getDrawable(R.drawable.ic_logo));
+        setBadgeDrawable(getResources().getDrawable(R.drawable.ic_logo_tv));
         Cursor sensorsList = db.getSensors();
 
         for(int position=0; position < HEADERS.length; position++){
