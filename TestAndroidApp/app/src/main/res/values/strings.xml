@@ -12,5 +12,7 @@
     <string name="title_activity_weacon_details">WeaconDetailsActivity</string>
     <string name="mas_luz">SUBIR INTENSIDAD</string>
     <string name="menos_luz">BAJAR INTENSIDAD</string>
+    <string name="control_desc">Luminosidad actual:</string>
+    <string name="temp_actual">Temperatura actual:</string>
 
 </resources>

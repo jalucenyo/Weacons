@@ -1,7 +1,5 @@
 package com.jalcdeveloper.weaconapp.weacon;
 
-import android.net.Uri;
-
 import com.jalcdeveloper.weaconapp.R;
 import com.jalcdeveloper.weaconapp.database.Weacon;
 
@@ -13,6 +11,8 @@ public class WeaconHelper {
     public static final String ATTR_STRIP_VAlUE_BRIGHTNESS = "brightness";
     public static final String ATTR_AMBIENT_SENSOR_TEMPERATURE = "temp";
     public static final String ATTR_AMBIENT_SENSOR_HUMIDITY = "humidity";
+
+    public static final double INCREMENT = 10.00;
 
     public static int getImage(Weacon weacon) {
         int image;

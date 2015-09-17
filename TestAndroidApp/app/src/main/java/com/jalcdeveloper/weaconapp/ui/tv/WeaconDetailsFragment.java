@@ -1,7 +1,6 @@
 package com.jalcdeveloper.weaconapp.ui.tv;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 
 import com.jalcdeveloper.weaconapp.R;
 import com.jalcdeveloper.weaconapp.database.Weacon;
+import com.jalcdeveloper.weaconapp.database.WeaconsDbHelper;
 import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
 import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
 import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
@@ -25,7 +25,6 @@ import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -99,13 +98,19 @@ public class WeaconDetailsFragment extends DetailsFragment{
             dorPresenter.setOnActionClickedListener(new OnActionClickedListener() {
                 @Override
                 public void onActionClicked(Action action) {
+                    WeaconNode weaconNode = WeaconManager.getWeaconNode(selectedWeacon.get_canal());
+                    double brightness = weaconNode.getDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS);
                     if (action.getId() == ACTION_ONE) {
                         /*Intent intent = new Intent(getActivity(), MainTvActivity.class);
                         intent.putExtra(Weacon.INTENT_EXTRA_WEACON, (Serializable) selectedWeacon);
                         startActivity(intent);*/
-                        Toast.makeText(getActivity(), action.toString(), Toast.LENGTH_SHORT).show();
+                        weaconNode.setDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS,
+                                brightness - WeaconHelper.INCREMENT);
+                        WeaconManager.publishWeacon(weaconNode);
                     } else {
-                        Toast.makeText(getActivity(), action.toString(), Toast.LENGTH_SHORT).show();
+                        weaconNode.setDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS,
+                                brightness + WeaconHelper.INCREMENT);
+                        WeaconManager.publishWeacon(weaconNode);
                     }
                 }
             });

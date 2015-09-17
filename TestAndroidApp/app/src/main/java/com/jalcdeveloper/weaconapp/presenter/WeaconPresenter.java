@@ -69,12 +69,17 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
             //WeaconManager.suscribeWeacon(weacon, this);
         }
 
+        if (weacon != null && weacon.getType().equals(WeaconHelper.TYPE_CONTROL)) {
+            ((ViewHolder) viewHolder).mCardView
+                    .setContentText(String.valueOf(weacon.getDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS)));
+            Log.d(TAG, "Weacon suscribe : " + weacon.getChannel());
+            //WeaconManager.suscribeWeacon(weacon, this);
+        }
+
 
         //Ejemplo en http://androidtv-codelabs.appspot.com/static/codelabs/1-androidtv-adding-leanback/#3 -> Create Picasso Target
         ((ViewHolder) viewHolder).mCardView.setTitleText(sensor.get_nombre());
-        //((ViewHolder) viewHolder).mCardView.setContentText(sensor.get_descripcion());
         ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-        //TODO siempre muestra la imagen por defecto (light_off)
         int image = WeaconHelper.getImage(sensor);
         Log.d(TAG, "Imagen " + image);
         ((ViewHolder) viewHolder).updateCardViewImage(image);
