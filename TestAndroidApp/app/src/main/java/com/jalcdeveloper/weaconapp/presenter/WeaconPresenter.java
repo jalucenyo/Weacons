@@ -69,7 +69,7 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
             ((ViewHolder) viewHolder).mCardView
                     .setContentText(weacon.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE) + "C");
             Log.d(TAG, "Weacon suscribe : " + weacon.getChannel());
-            WeaconManager.suscribeWeacon(weacon, this);
+            //WeaconManager.suscribeWeacon(weacon, this);
         }
 
 

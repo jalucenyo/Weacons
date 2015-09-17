@@ -19,6 +19,9 @@ import android.widget.Toast;
 import com.jalcdeveloper.weaconapp.R;
 import com.jalcdeveloper.weaconapp.database.Weacon;
 import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
+import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -27,7 +30,7 @@ import java.io.Serializable;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class WeaconDetailsFragment extends DetailsFragment {
+public class WeaconDetailsFragment extends DetailsFragment{
 
 
     private Weacon selectedWeacon;
@@ -54,6 +57,7 @@ public class WeaconDetailsFragment extends DetailsFragment {
                 .getIntent()
                 .getSerializableExtra(Weacon.INTENT_EXTRA_WEACON);
         (mRowBuilderTask = new DetailRowBuilderTask()).execute(selectedWeacon);
+
     }
 
     @Override
@@ -107,9 +111,20 @@ public class WeaconDetailsFragment extends DetailsFragment {
             });
             ps.addClassPresenter(DetailsOverviewRow.class, dorPresenter);
             ps.addClassPresenter(ListRow.class, new ListRowPresenter());
-            ArrayObjectAdapter adapter = new ArrayObjectAdapter(ps);
+            final ArrayObjectAdapter adapter = new ArrayObjectAdapter(ps);
             adapter.add(detailRow);
             setAdapter(adapter);
+
+            // Refresh Detail
+            WeaconManager.suscribeWeacon(
+                    WeaconManager.getWeaconNode(selectedWeacon.get_canal()),
+                    new WeaconNodeListener() {
+                @Override
+                public void onUpdate(WeaconNode weacon) {
+                    adapter.notifyArrayItemRangeChanged(0, adapter.size());
+                }
+            });
+
         }
     }
 

@@ -22,6 +22,7 @@ import com.jalcdeveloper.weaconapp.presenter.WeaconPresenter;
 import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
 import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
 import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
+import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 
 import java.io.Serializable;
 
@@ -115,7 +116,6 @@ public class WeaconBrowserFragment extends BrowseFragment
 
     @Override
     public void onNewWeacon(WeaconNode weacon) {
-
 
         mRowsAdapter.notifyArrayItemRangeChanged(0, mRowsAdapter.size());
 
