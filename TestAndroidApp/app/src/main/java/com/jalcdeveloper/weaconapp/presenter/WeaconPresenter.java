@@ -79,6 +79,7 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
         ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
         //TODO siempre muestra la imagen por defecto (light_off)
         String imageUri = WeaconHelper.getImage(sensor);
+        Log.d(TAG, "Imagen " + imageUri);
         ((ViewHolder) viewHolder).updateCardViewImage(imageUri);
 
     }
