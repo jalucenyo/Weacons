@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v17.leanback.widget.AbstractDetailsDescriptionPresenter;
 import android.util.Log;
 
+import com.jalcdeveloper.weaconapp.R;
 import com.jalcdeveloper.weaconapp.database.Weacon;
 import com.jalcdeveloper.weaconapp.presenter.WeaconPresenter;
 import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
@@ -37,9 +38,11 @@ public class DetailsDescriptionPresenter extends AbstractDetailsDescriptionPrese
             viewHolder.getSubtitle().setText(weacon.get_tipo());
             WeaconNode node = WeaconManager.getWeaconNode(weacon.get_canal());
             if (node != null && node.getType().equals(WeaconHelper.TYPE_AMBIENT)) {
-                viewHolder.getBody().setText(node.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE) + "C");
+                viewHolder.getBody().setText(mContext.getResources().getText(R.string.temp_actual) +
+                        String.valueOf(node.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE)) + "C");
             } else {
-                viewHolder.getBody().setText(String.valueOf(node.getDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS)));
+                viewHolder.getBody().setText(mContext.getResources().getText(R.string.lum_actual) +
+                        String.valueOf(node.getDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS)));
             }
         }
     }

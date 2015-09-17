@@ -64,14 +64,16 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
         WeaconNode weacon = WeaconManager.getWeaconNode(sensor.get_canal());
         if (weacon != null && weacon.getType().equals(WeaconHelper.TYPE_AMBIENT)) {
             ((ViewHolder) viewHolder).mCardView
-                    .setContentText(weacon.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE) + "C");
+                    .setContentText(mContext.getResources().getText(R.string.temp_actual) +
+                            String.valueOf(weacon.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE)) + "C");
             Log.d(TAG, "Weacon suscribe : " + weacon.getChannel());
             //WeaconManager.suscribeWeacon(weacon, this);
         }
 
         if (weacon != null && weacon.getType().equals(WeaconHelper.TYPE_CONTROL)) {
             ((ViewHolder) viewHolder).mCardView
-                    .setContentText(String.valueOf(weacon.getDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS)));
+                    .setContentText(mContext.getResources().getText(R.string.lum_actual) +
+                            String.valueOf(weacon.getDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS)));
             Log.d(TAG, "Weacon suscribe : " + weacon.getChannel());
             //WeaconManager.suscribeWeacon(weacon, this);
         }
