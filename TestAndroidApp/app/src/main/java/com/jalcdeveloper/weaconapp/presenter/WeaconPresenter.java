@@ -14,15 +14,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jalcdeveloper.weaconapp.R;
-import com.jalcdeveloper.weaconapp.database.Sensor;
+import com.jalcdeveloper.weaconapp.database.Weacon;
 import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
 import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
 import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
 import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-
-import java.security.AccessControlContext;
 
 public class WeaconPresenter extends Presenter implements WeaconNodeListener {
 
@@ -62,14 +60,14 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
     @Override
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object o) {
         Log.d(TAG, "onBindViewHolder");
-        Sensor sensor = (Sensor) o;
-        Log.d(TAG, "onBindViewHolder : Sensor " + sensor.get_canal());
+        Weacon sensor = (Weacon) o;
+        Log.d(TAG, "onBindViewHolder : Weacon " + sensor.get_canal());
 
         // TODO: Temporalmente mostramos la temp en la descripción
         WeaconNode weacon = WeaconManager.getWeaconNode(sensor.get_canal());
         if (weacon != null && weacon.getType().equals(WeaconHelper.TYPE_AMBIENT)) {
             ((ViewHolder) viewHolder).mCardView
-                    .setContentText(weacon.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE) + " C");
+                    .setContentText(weacon.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE) + "C");
             Log.d(TAG, "Weacon suscribe : " + weacon.getChannel());
             WeaconManager.suscribeWeacon(weacon, this);
         }
@@ -79,9 +77,8 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
         ((ViewHolder) viewHolder).mCardView.setTitleText(sensor.get_nombre());
         //((ViewHolder) viewHolder).mCardView.setContentText(sensor.get_descripcion());
         ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-        //TODO: Cargar una imagen u otra segun el tipo de sensor y estado
-        //Imagenes libres en https://icons8.com
-        String imageUri = "drawable://" + R.drawable.light_on;
+        //TODO siempre muestra la imagen por defecto (light_off)
+        String imageUri = WeaconHelper.getImage(sensor);
         ((ViewHolder) viewHolder).updateCardViewImage(imageUri);
 
     }

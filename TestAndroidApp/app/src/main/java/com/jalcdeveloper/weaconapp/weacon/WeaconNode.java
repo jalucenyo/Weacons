@@ -1,6 +1,8 @@
 package com.jalcdeveloper.weaconapp.weacon;
 
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,11 +49,19 @@ public class WeaconNode {
     }
 
     public double getDoubleAttribute(String attributeKey){
-        return (double)attributes.get(attributeKey);
+        return round((double)attributes.get(attributeKey), 2);
     }
 
     public void setDoubleAttribute(String attributeKey, double value){
         attributes.put(attributeKey, value);
+    }
+
+    private static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 }

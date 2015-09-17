@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.jalcdeveloper.weaconapp.R;
+import com.jalcdeveloper.weaconapp.database.Weacon;
 
 public class WeaconDetailsActivity extends Activity {
 

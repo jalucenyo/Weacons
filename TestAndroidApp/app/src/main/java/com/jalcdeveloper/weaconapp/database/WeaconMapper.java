@@ -8,13 +8,13 @@ import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
 public class WeaconMapper {
 
     /**
-     * Mapping object WeaconNode to Sensor
+     * Mapping object WeaconNode to Weacon
      * @param weacon
      * @return
      */
-    public static Sensor toSensor(WeaconNode weacon){
+    public static Weacon toSensor(WeaconNode weacon){
 
-        Sensor sensor = new Sensor();
+        Weacon sensor = new Weacon();
         sensor.set_canal(weacon.getChannel());
         sensor.set_tipo(weacon.getType());
         sensor.set_nombre(weacon.getChannel());

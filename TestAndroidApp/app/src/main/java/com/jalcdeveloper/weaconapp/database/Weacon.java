@@ -1,9 +1,11 @@
 package com.jalcdeveloper.weaconapp.database;
 
+import java.io.Serializable;
+
 /**
  * Created by Carles on 14/09/15.
  */
-public class Sensor {
+public class Weacon implements Serializable {
 
     public static final String INTENT_EXTRA_WEACON = "INTENT_EXTRA_WEACON";
     private int _id;
@@ -12,9 +14,9 @@ public class Sensor {
     private String _canal;
     private String _tipo;
 
-    public Sensor() {}
+    public Weacon() {}
 
-    public Sensor(int id, String nombre, String descripcion, String canal, String tipo){
+    public Weacon(int id, String nombre, String descripcion, String canal, String tipo){
         this._id = id;
         this._nombre = nombre;
         this._descripcion = descripcion;

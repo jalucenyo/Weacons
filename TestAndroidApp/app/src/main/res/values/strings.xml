@@ -10,7 +10,7 @@
     <string name="recyclerview_sensors_empty">¿Donde estan los sensores?</string>
     <string name="title_activity_main_tv">MainTvActivity</string>
     <string name="title_activity_weacon_details">WeaconDetailsActivity</string>
-    <string name="action_play">PLAY</string>
-    <string name="action_watch_later">WATCH LATER</string>
+    <string name="mas_luz">SUBIR INTENSIDAD</string>
+    <string name="menos_luz">BAJAR INTENSIDAD</string>
 
 </resources>

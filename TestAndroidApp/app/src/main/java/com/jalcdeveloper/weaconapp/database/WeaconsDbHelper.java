@@ -52,15 +52,15 @@ public class WeaconsDbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Agregar sensor
-     * @param sensor Sensor que queremos añadir
+     * Agregar weacon
+     * @param weacon Weacon que queremos añadir
      */
-    public void addSensor(Sensor sensor) {
+    public void addSensor(Weacon weacon) {
         ContentValues values = new ContentValues();
-        values.put(WeaconsContract.Sensors.COLUMN_NAME_TITLE, sensor.get_nombre());
-        values.put(WeaconsContract.Sensors.COLUMN_NAME_DESC, sensor.get_descripcion());
-        values.put(WeaconsContract.Sensors.COLUMN_NAME_CHANNEL, sensor.get_canal());
-        values.put(WeaconsContract.Sensors.COLUMN_NAME_TYPE, sensor.get_tipo());
+        values.put(WeaconsContract.Sensors.COLUMN_NAME_TITLE, weacon.get_nombre());
+        values.put(WeaconsContract.Sensors.COLUMN_NAME_DESC, weacon.get_descripcion());
+        values.put(WeaconsContract.Sensors.COLUMN_NAME_CHANNEL, weacon.get_canal());
+        values.put(WeaconsContract.Sensors.COLUMN_NAME_TYPE, weacon.get_tipo());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(WeaconsContract.Sensors.TABLE_NAME, null, values);

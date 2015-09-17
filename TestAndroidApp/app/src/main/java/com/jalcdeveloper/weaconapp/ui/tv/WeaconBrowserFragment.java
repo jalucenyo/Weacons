@@ -15,14 +15,13 @@ import android.support.v17.leanback.widget.RowPresenter;
 import android.view.View;
 
 import com.jalcdeveloper.weaconapp.R;
-import com.jalcdeveloper.weaconapp.database.Sensor;
+import com.jalcdeveloper.weaconapp.database.Weacon;
 import com.jalcdeveloper.weaconapp.database.WeaconMapper;
 import com.jalcdeveloper.weaconapp.database.WeaconsDbHelper;
 import com.jalcdeveloper.weaconapp.presenter.WeaconPresenter;
 import com.jalcdeveloper.weaconapp.weacon.WeaconHelper;
 import com.jalcdeveloper.weaconapp.weacon.WeaconManager;
 import com.jalcdeveloper.weaconapp.weacon.WeaconNode;
-import com.jalcdeveloper.weaconapp.weacon.WeaconNodeListener;
 
 import java.io.Serializable;
 
@@ -39,14 +38,12 @@ public class WeaconBrowserFragment extends BrowseFragment
     public void init(){
 
         //TODO: Icono de la aplicacion
-        //TODO: JALC - Descubrir sensores e guardar en base de datos.
-        //TODO: JALC - Sensores virtuales !!!
         //Para reiniciar la BD
         //getActivity().getApplicationContext().deleteDatabase("Weaconsapp.db");
         db = new WeaconsDbHelper(getActivity().getApplicationContext());
         //Descomentar para agregar un sensor de prueba
         /**
-        Sensor sensor = new Sensor();
+        Weacon sensor = new Weacon();
         sensor.set_nombre("Prueba");
         sensor.set_descripcion("Canal de prueba");
         sensor.set_canal("ambient_sensor_04");
@@ -70,11 +67,10 @@ public class WeaconBrowserFragment extends BrowseFragment
             //ObjectAdapter rowContents = new CursorObjectAdapter((new SinglePresenterSelector(new WeaconPresenter())));
             HeaderItem headerItem = new HeaderItem(position, HEADERS[position]);
 
-            // TODO: CMMATA - Asociar WeacomDetailPresenter.
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new WeaconPresenter());
             if (sensorsList.moveToFirst()) {
                 do {
-                    Sensor aux = new Sensor(
+                    Weacon aux = new Weacon(
                             Integer.parseInt(sensorsList.getString(0)),
                             sensorsList.getString(1),
                             sensorsList.getString(2),
@@ -104,6 +100,11 @@ public class WeaconBrowserFragment extends BrowseFragment
 
         WeaconManager.startDiscovery(this);
         setOnItemViewClickedListener(getDefaultItemViewClickedListener());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -143,7 +144,7 @@ public class WeaconBrowserFragment extends BrowseFragment
                                       RowPresenter.ViewHolder viewHolder2, Row row) {
 
                 Intent intent = new Intent(getActivity(), WeaconDetailsActivity.class);
-                intent.putExtra(Sensor.INTENT_EXTRA_WEACON, (Serializable)o);
+                intent.putExtra(Weacon.INTENT_EXTRA_WEACON, (Serializable)o);
                 startActivity(intent);
             }
         };
