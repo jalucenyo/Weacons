@@ -16,8 +16,9 @@
 */
 #include <ESP8266WiFi.h>
 #include <DHT.h>
+#include <aJSON.h>
 
-//#define DEBUG
+#define DEBUG
 #define DHTTYPE DHT22
 #define DHTPIN  2
 
@@ -27,13 +28,14 @@ float humidity, temp_f;  // Values read from sensor
 // Generally, you should use "unsigned long" for variables that hold time
 const long interval = 2000;              // interval at which to read sensor
 
-const char* ssid     = "YOUR WIFI SSID";
-const char* password = "PASSWORD WIFI";
+// const char* ssid     = "YOUR WIFI SSID";
+// const char* password = "PASSWORD WIFI";
+//
+// const char* publish_key = "pub-YOUR PUBLISH KEY";
+// const char* suscribe_key = "sub-YOUR SUSCRIBE KEY";
+// const char* secret_key = "sec-c-YOUR SECREY KEY";
 
-const char* publish_key = "pub-YOUR PUBLISH KEY";
-const char* suscribe_key = "sub-YOUR SUSCRIBE KEY";
-const char* secret_key = "sec-c-YOUR SECREY KEY";
-
+const char* type = "ambient";
 const char* channel = "ambient_sensor_001";
 const char* channel_sensor_list = "sensors_list";
 const char* host = "pubsub.pubnub.com";
@@ -41,6 +43,8 @@ const int httpPort = 80;
 
 // Generally, you should use "unsigned long" for variables that hold time
 unsigned long previousMillis = 0;        // will store last temp was read
+aJsonObject *rootJson;
+aJsonObject *attributesJson;
 
 const char* streamId   = "....................";
 const char* privateKey = "....................";
@@ -91,6 +95,15 @@ void loop() {
 
   gettemperature();       // read sensor
 
+  // Create Json
+  //{"type":"ambient","channel":"ambient_sensor_001","attributes":{"temp":29.30000,"humidity":55.50000}}
+  rootJson=aJson.createObject();
+  aJson.addStringToObject(rootJson,"type",type);
+  aJson.addStringToObject(rootJson,"channel",channel);
+  aJson.addItemToObject(rootJson,"attributes", attributesJson = aJson.createObject());
+  aJson.addNumberToObject(attributesJson, "temp", temp_f);
+  aJson.addNumberToObject(attributesJson, "humidity", humidity);
+
   String publishUrl = "/publish";
   publishUrl += "/";
   publishUrl += publish_key;
@@ -100,8 +113,9 @@ void loop() {
   publishUrl += secret_key;
   publishUrl += "/";
   publishUrl += channel;
-  publishUrl += "/0";
-  publishUrl += "/%22T:"+String((int)temp_f)+"-H:"+String((int)humidity)+"%22";
+  publishUrl += "/0/";
+  //publishUrl += "/%22T:"+String((int)temp_f)+"-H:"+String((int)humidity)+"%22";
+  publishUrl += aJson.print(rootJson);
 
   Serial.print("Requesting URL: ");
   Serial.println(publishUrl);
@@ -124,6 +138,8 @@ void loop() {
   #endif
   client.stop();
   delay(100);
+  aJson.deleteItem(rootJson);
+
 
   /**
    *  Send list of sensors.
@@ -132,6 +148,12 @@ void loop() {
     Serial.println("connection failed");
     return;
   }
+
+  // Create Json
+  //{"type":"ambient","channel":"ambient_sensor_001","attributes":{"temp":29.30000,"humidity":55.50000}}
+  rootJson=aJson.createObject();
+  aJson.addStringToObject(rootJson,"type",type);
+  aJson.addStringToObject(rootJson,"channel",channel);
 
   String sensorListUrl = "/publish";
   sensorListUrl += "/";
@@ -142,8 +164,9 @@ void loop() {
   sensorListUrl += secret_key;
   sensorListUrl += "/";
   sensorListUrl += channel_sensor_list;
-  sensorListUrl += "/0";
-  sensorListUrl += "/%22"+String(channel)+"%22";
+  sensorListUrl += "/0/";
+  //sensorListUrl += "/%22"+String(channel)+"%22";
+  sensorListUrl += aJson.print(rootJson);
 
   Serial.print("Requesting URL: ");
   Serial.println(sensorListUrl);
@@ -165,7 +188,7 @@ void loop() {
   Serial.println("closing connection");
   #endif
   client.stop();
-
+  aJson.deleteItem(rootJson);
 
 }
 

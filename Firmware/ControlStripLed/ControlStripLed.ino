@@ -15,6 +15,7 @@
 *  Jose A. Luceño
 */
 #include <ESP8266WiFi.h>
+#include <aJSON.h>
 
 //#define DEBUG
 #define STRIP_PIN  2
@@ -22,12 +23,12 @@
 // Generally, you should use "unsigned long" for variables that hold time
 const long interval = 2000;              // interval at which to read sensor
 
-const char* ssid     = "YOUR WIFI SSID";
-const char* password = "PASSWORD WIFI";
-
-const char* publish_key = "pub-YOUR PUBLISH KEY";
-const char* suscribe_key = "sub-YOUR SUSCRIBE KEY";
-const char* secret_key = "sec-c-YOUR SECREY KEY";
+// const char* ssid     = "YOUR WIFI SSID";
+// const char* password = "PASSWORD WIFI";
+//
+// const char* publish_key = "pub-YOUR PUBLISH KEY";
+// const char* suscribe_key = "sub-YOUR SUSCRIBE KEY";
+// const char* secret_key = "sec-c-YOUR SECREY KEY";
 
 const char* channel_sensor_list = "sensors_list";
 const char* channel = "control_strip_001";
@@ -111,7 +112,21 @@ void loop() {
       while(client.available()){
 
         String line = client.readStringUntil('\r');
-        //Serial.println(line);
+        //char lineJsonRaw[sizeof(line)];
+        //line.toCharArray(lineJsonRaw, sizeof(lineJsonRaw));
+        Serial.println(line);
+
+        // Parsing JSON received
+        //{"type":"control","channel":"control_strip_001","attributes":{"brightness":128}}
+        // aJsonObject *msg = aJson.parse(lineJsonRaw);
+        // aJsonObject *control = aJson.getObjectItem(msg, "attributes");
+        // aJsonObject *brightness = aJson.getObjectItem(control, "brightness");
+        //
+        // if(brightness){
+        //   if(brightness->type == aJson_Int){
+        //     analogWrite(STRIP_PIN, brightness->valueint);
+        //   }
+        // }
 
         if(line.substring(1,3) == "[["){
           if(timetoken == "0"){
