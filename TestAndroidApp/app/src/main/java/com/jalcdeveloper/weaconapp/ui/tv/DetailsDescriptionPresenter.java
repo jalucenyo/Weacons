@@ -39,7 +39,7 @@ public class DetailsDescriptionPresenter extends AbstractDetailsDescriptionPrese
             if (node != null && node.getType().equals(WeaconHelper.TYPE_AMBIENT)) {
                 viewHolder.getBody().setText(node.getDoubleAttribute(WeaconHelper.ATTR_AMBIENT_SENSOR_TEMPERATURE) + "C");
             } else {
-                viewHolder.getBody().setText(weacon.get_descripcion());
+                viewHolder.getBody().setText(String.valueOf(node.getDoubleAttribute(WeaconHelper.ATTR_STRIP_VAlUE_BRIGHTNESS)));
             }
         }
     }
