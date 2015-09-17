@@ -51,8 +51,6 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
             @Override
             public void run() {
 
-                //TODO: Como coñe actualizo el presenter?
-
             }
         });
     }
@@ -63,7 +61,6 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
         Weacon sensor = (Weacon) o;
         Log.d(TAG, "onBindViewHolder : Weacon " + sensor.get_canal());
 
-        // TODO: Temporalmente mostramos la temp en la descripción
         WeaconNode weacon = WeaconManager.getWeaconNode(sensor.get_canal());
         if (weacon != null && weacon.getType().equals(WeaconHelper.TYPE_AMBIENT)) {
             ((ViewHolder) viewHolder).mCardView
@@ -78,9 +75,9 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
         //((ViewHolder) viewHolder).mCardView.setContentText(sensor.get_descripcion());
         ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
         //TODO siempre muestra la imagen por defecto (light_off)
-        String imageUri = WeaconHelper.getImage(sensor);
-        Log.d(TAG, "Imagen " + imageUri);
-        ((ViewHolder) viewHolder).updateCardViewImage(imageUri);
+        int image = WeaconHelper.getImage(sensor);
+        Log.d(TAG, "Imagen " + image);
+        ((ViewHolder) viewHolder).updateCardViewImage(image);
 
     }
 
@@ -132,7 +129,7 @@ public class WeaconPresenter extends Presenter implements WeaconNodeListener {
             return mCardView;
         }
 
-        protected void updateCardViewImage(String url) {
+        protected void updateCardViewImage(int url) {
            Picasso.with(mContext)
                     .load(url)
                     .resize(CARD_WIDTH * 2, CARD_HEIGHT * 2)

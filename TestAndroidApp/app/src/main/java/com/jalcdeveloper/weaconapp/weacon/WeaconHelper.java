@@ -14,20 +14,17 @@ public class WeaconHelper {
     public static final String ATTR_AMBIENT_SENSOR_TEMPERATURE = "temp";
     public static final String ATTR_AMBIENT_SENSOR_HUMIDITY = "humidity";
 
-    public static String getImage(Weacon weacon) {
-        Uri fileUri;
+    public static int getImage(Weacon weacon) {
+        int image;
         if (weacon.get_tipo().equals(WeaconHelper.TYPE_CONTROL)) {
-            fileUri = Uri.parse("android.resource://com.jalcdeveloper.weaconapp/" + R.drawable.temp_cold);
-            //imageUri = "drawable://" + R.drawable.temp_cold;
+            image = R.drawable.light_off;
         } else if (weacon.get_tipo().equals(WeaconHelper.TYPE_AMBIENT)) {
-            fileUri = Uri.parse("android.resource://com.jalcdeveloper.weaconapp/" + R.drawable.light_on);
-            //imageUri = "drawable://" + R.drawable.light_on;
+            image = R.drawable.temp_cold;
         } else {
-            fileUri = Uri.parse("android.resource://com.jalcdeveloper.weaconapp/" + R.drawable.sensor);
-            //imageUri = "drawable://" + R.drawable.sensor;
+            image = R.drawable.sensor;
         }
 
-        return fileUri.getPath();
+        return image;
     }
 
 }
